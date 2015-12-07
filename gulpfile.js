@@ -11,7 +11,7 @@ var connect = require('gulp-connect');
 gulp.task('buildApp', function(){
   return gulp.src(['src/js/config.js', 'src/js/**/*.js'])
     .pipe(concat('app.js'))
-    .pipe(uglify())
+    //.pipe(uglify())
     .pipe(gulp.dest('dist'))
     .pipe(connect.reload());
 });
@@ -70,7 +70,7 @@ gulp.task('connect', function(){
 });
 
 gulp.task('watch', function(){
-  gulp.watch('src/js/**/*.js', ['buildApp', 'test']);
+  gulp.watch('src/js/**/*.js', ['buildApp', 'jshint']);
   gulp.watch('src/css/**/*.css', ['buildCSS']);
   gulp.watch('src/**/*.html', ['moveHTML']);
 });

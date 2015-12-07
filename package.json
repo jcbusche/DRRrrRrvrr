@@ -1,14 +1,14 @@
 {
-  "name": "fizzbuzzer",
+  "name": "drivetranslator",
   "version": "1.0.0",
-  "description": "",
+  "description": "Translates documents in Google Drive to Zombie",
   "main": "karma.conf.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/CSCI-E32/Week-7.git"
+    "url": "git+https://github.com/CSCI-E32/Week-7.git"
   },
   "author": "",
   "license": "MIT",
@@ -29,5 +29,10 @@
     "karma-jasmine": "^0.3.6",
     "karma-phantomjs-launcher": "^0.2.1",
     "phantomjs": "^1.9.18"
+  },
+  "dependencies": {
+    "angular": "^1.4.8",
+    "bower": "^1.6.8",
+    "bootstrap": "^3.3.6"
   }
 }
