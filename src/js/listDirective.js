@@ -1,7 +1,7 @@
 /*global angular */
 angular.module('zombieDrive')
   .directive('listDir', ['docList', 'links', '$timeout', '$q', function(docList, links, $timeout, $q){
-    docList.listFiles();
+
 
     var link = function(scope, element, attrs){
       var updateList = function(){
@@ -15,8 +15,8 @@ angular.module('zombieDrive')
         console.log(output);
         element.html(output);
       };
-      $timeout(updateList, 600);
-      updateList();
+      console.log('calling docList.listFiles...');
+      docList.listFiles(updateList);
     };
 
     return {

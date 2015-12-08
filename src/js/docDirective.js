@@ -4,16 +4,19 @@ angular.module('zombieDrive')
     var getDocID = function(){
       var docID = $location.url();
       currentDoc.docID = docID.substring(5);
+      //console.log('calling back from getDocID...');
+      return currentDoc.docID;
     };
 
     var link = function(scope, element, attrs){
-      getDocID();
-      viewDocument.displayFile(currentDoc.docID);
       var getDocText = function(){
-        console.log('Doc text: ' + currentDoc.docText);
+        //console.log('Doc text: ' + currentDoc.docText);
+        console.log('checking in from getDocText!');
         element.html(currentDoc.docText);
       };
-      $timeout(getDocText, 1000);
+      var docID = getDocID();
+      console.log('calling viewDocument.displayFile....');
+      viewDocument.displayFile(docID, getDocText);
 
     };
 

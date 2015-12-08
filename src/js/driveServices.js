@@ -5,7 +5,7 @@ angular.module('zombieDrive')
     /**
    * Print files.
    */
-    this.listFiles = function(){
+    this.listFiles = function(callback){
       var request = gapi.client.drive.files.list({
         'maxResults': 10,
         'q': "mimeType = 'application/vnd.google-apps.document'"
@@ -18,10 +18,11 @@ angular.module('zombieDrive')
           for (var i = 0; i < files.length; i++) {
             var file = files[i];
             links.list.push(createLinks.appendLink(file.id, file.title));
+            callback();
           }
         } else {
-
-          links.list.push(createLinks.appendLink('', 'No files found.'));
+            links.list.push(createLinks.appendLink('', 'No files found.'));
+            callback();
         }
         console.log('links: ' + links.list);
       });
@@ -58,8 +59,8 @@ angular.module('zombieDrive')
 }])
   .value('links', {list: []})
   .service('viewDocument', ['currentDoc', function(currentDoc){
-    this.displayFile = function(fileId){
-      console.log(fileId);
+    this.displayFile = function(fileId, callback){
+      //console.log(fileId);
       var request = gapi.client.drive.files.get({fileId: fileId});
 
       request.execute(function(resp) {
@@ -72,8 +73,10 @@ angular.module('zombieDrive')
             xhr.setRequestHeader('Authorization', "Bearer "+accessToken);
           },
           success: function( data ) {
-            console.log('data: ' + data);
+            //console.log('data: ' + data);
             currentDoc.docText = data.replace(/\n/g, "<br>");
+            console.log('calling back from displayFile...');
+            callback();
           }
         });
 
