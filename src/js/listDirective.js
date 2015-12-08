@@ -1,6 +1,6 @@
 /*global angular */
 angular.module('zombieDrive')
-  .directive('listDir', ['docList', 'links', '$timeout', '$q', function(docList, links, $timeout, $q){
+  .directive('listDir', ['docList', 'links', function(docList, links){
 
 
     var link = function(scope, element, attrs){

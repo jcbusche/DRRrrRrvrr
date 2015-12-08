@@ -1,6 +1,6 @@
 /*global angular*/
 angular.module('zombieDrive')
-  .directive('docDirective', ['$location', '$timeout', 'viewDocument', 'currentDoc', function($location, $timeout, viewDocument, currentDoc){
+  .directive('docDirective', ['$location', 'viewDocument', 'currentDoc', function($location, viewDocument, currentDoc){
     var getDocID = function(){
       var docID = $location.url();
       currentDoc.docID = docID.substring(5);
