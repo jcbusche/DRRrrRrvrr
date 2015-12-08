@@ -6,7 +6,7 @@ app.config(['$routeProvider', function($routeProvider){
     .when('/list', {
       templateUrl: 'templates/list.html'
     })
-    .when('/doc', {
+    .when('/doc/:docID', {
       templateUrl: 'templates/doc.html'
     });
 }]);

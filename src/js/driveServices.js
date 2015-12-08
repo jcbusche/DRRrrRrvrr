@@ -1,7 +1,7 @@
 /*global angular*/
 /*global gapi*/
 angular.module('zombieDrive')
-  .service('docList', ['createLinks', function(createLinks){
+  .service('docList', ['createLinks', 'links', function(createLinks, links){
     /**
    * Print files.
    */
@@ -10,44 +10,23 @@ angular.module('zombieDrive')
         'maxResults': 10,
         'q': "mimeType = 'application/vnd.google-apps.document'"
       });
+      console.log('link list : ' + links.list);
       request.execute(function(resp) {
-        var docs = [];
+        links.list = [];
         var files = resp.items;
         if (files && files.length > 0) {
           for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            docs.push(createLinks.appendLink(file.id, file.title));
+            links.list.push(createLinks.appendLink(file.id, file.title));
           }
-          console.log('escaped for loop');
         } else {
-          console.log('else called');
-          //docs.append(createLinks.appendLink('', 'No files found.'));
+
+          links.list.push(createLinks.appendLink('', 'No files found.'));
         }
-        console.log(docs);
+        console.log('links: ' + links.list);
       });
     };
 
-
-  // this.displayFile = function(){
-  //     fileId = window.location.hash.substring(1);
-  //     var request = gapi.client.drive.files.get({fileId: fileId});
-  //
-  //     request.execute(function(resp) {
-  //       var accessToken = gapi.auth.getToken().access_token;
-  //
-  //       $.ajax({
-  //         url: resp.exportLinks["text/plain"],
-  //         type: "GET",
-  //         beforeSend: function(xhr){
-  //           xhr.setRequestHeader('Authorization', "Bearer "+accessToken);
-  //         },
-  //         success: function( data ) {
-  //           $('#output').html(data.replace(/\n/g, "<br>"));
-  //         }
-  //       });
-  //
-  //     });
-  //   };
 
   }])
   .service('createLinks', [function(){
@@ -59,16 +38,46 @@ angular.module('zombieDrive')
    * @param {string} text Text to be placed in a element.
    */
    this.appendLink = function(id, text){
-     console.log("appendLink called")
+     console.log("appendLink called");
     if(id !== ''){
-      var li = $('<li></li>');
-      var link = $('<a></a>');
-      link.attr('href', '/doc.html#'+id);
-      link.html(text);
-      li.append(link);
+      // var li = $('<li></li>');
+      // var link = $('<a></a>');
+      // link.attr('href', '/doc.html#'+id);
+      // link.html(text);
+      // li.append(link);
+      var li = '<li>';
+      li = li.concat('<a href=\"/#/doc/' + id + '\">');
+      li = li.concat(text);
+      li = li.concat('</a></li>');
+      console.log('link:' + li);
       return li;
     } else {
       return text;
     }
   };
-}]);
+}])
+  .value('links', {list: []})
+  .service('viewDocument', ['currentDoc', function(currentDoc){
+    this.displayFile = function(fileId){
+      console.log(fileId);
+      var request = gapi.client.drive.files.get({fileId: fileId});
+
+      request.execute(function(resp) {
+        var accessToken = gapi.auth.getToken().access_token;
+
+        $.ajax({
+          url: resp.exportLinks["text/plain"],
+          type: "GET",
+          beforeSend: function(xhr){
+            xhr.setRequestHeader('Authorization', "Bearer "+accessToken);
+          },
+          success: function( data ) {
+            console.log('data: ' + data);
+            currentDoc.docText = data.replace(/\n/g, "<br>");
+          }
+        });
+
+        });
+      };
+  }])
+  .value('currentDoc', {docID: '', docText: ''});
