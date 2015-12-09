@@ -74,7 +74,7 @@ angular.module('zombieDrive')
           },
           success: function( data ) {
             //console.log('data: ' + data);
-            currentDoc.docText = data.replace(/\n/g, "<br>");
+            currentDoc.docText = data;
             console.log('calling back from displayFile...');
             callback();
           }
@@ -83,4 +83,4 @@ angular.module('zombieDrive')
         });
       };
   }])
-  .value('currentDoc', {docID: '', docText: ''});
+  .value('currentDoc', {docID: '',docTitle: '', docText: '', translatedDoc: ''});

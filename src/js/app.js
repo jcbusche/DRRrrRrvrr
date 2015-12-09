@@ -8,6 +8,12 @@ app.config(['$routeProvider', function($routeProvider){
     })
     .when('/doc/:docID', {
       templateUrl: 'templates/doc.html'
+    })
+    .when('/auth',{
+      templateUrl: 'templates/auth.html'
+    })
+    .otherwise({
+      redirectTo: '/auth'
     });
 }]);
 

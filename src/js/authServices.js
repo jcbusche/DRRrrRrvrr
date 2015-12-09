@@ -27,6 +27,7 @@ angular.module('zombieDrive')
         //loadDriveApi();
         console.log("Success!");
         $window.location.href = '/#/list';
+
       } else {
         // Show auth UI, allowing the user to initiate authorization by
         // clicking authorize button.
@@ -34,5 +35,17 @@ angular.module('zombieDrive')
         console.log("failure");
       }
     };
+      /**
+     * Check if current user has authorized this application.
+     */
+    this.checkAuth = function() {
+      gapi.auth.authorize(
+        {
+          'client_id': CLIENT_ID,
+          'scope': SCOPES,
+          'immediate': true
+        }, this.handleAuthResult);
+    };
 
-  }]);
+  }])
+  .value('authStatus', false);
