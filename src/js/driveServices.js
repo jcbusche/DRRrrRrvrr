@@ -7,10 +7,10 @@ angular.module('zombieDrive')
    */
     this.listFiles = function(callback){
       var request = gapi.client.drive.files.list({
-        'maxResults': 10,
+        'maxResults': 20,
         'q': "mimeType = 'application/vnd.google-apps.document'"
       });
-      console.log('link list : ' + links.list);
+      //console.log('link list : ' + links.list);
       request.execute(function(resp) {
         links.list = [];
         var files = resp.items;
@@ -24,7 +24,7 @@ angular.module('zombieDrive')
             links.list.push(createLinks.appendLink('', 'No files found.'));
             callback();
         }
-        console.log('links: ' + links.list);
+        //console.log('links: ' + links.list);
       });
     };
 
@@ -39,18 +39,13 @@ angular.module('zombieDrive')
    * @param {string} text Text to be placed in a element.
    */
    this.appendLink = function(id, text){
-     console.log("appendLink called");
+     //console.log("appendLink called");
     if(id !== ''){
-      // var li = $('<li></li>');
-      // var link = $('<a></a>');
-      // link.attr('href', '/doc.html#'+id);
-      // link.html(text);
-      // li.append(link);
       var li = '<li>';
       li = li.concat('<a href=\"/#/doc/' + id + '\">');
       li = li.concat(text);
       li = li.concat('</a></li>');
-      console.log('link:' + li);
+      //console.log('link:' + li);
       return li;
     } else {
       return text;
@@ -83,4 +78,4 @@ angular.module('zombieDrive')
         });
       };
   }])
-  .value('currentDoc', {docID: '',docTitle: '', docText: '', translatedDoc: ''});
+  .value('currentDoc', {docID: '', docText: '', translatedDoc: ''});

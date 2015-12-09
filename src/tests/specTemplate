@@ -1,0 +1,10 @@
+describe('', function(){
+  var ;
+  beforeEach(module('zombieDrive'));
+  beforeEach(inject(function($injector){
+    = $injector.get('');
+  }));
+  it('should', function(){
+    expect().toBe('');
+  });
+});

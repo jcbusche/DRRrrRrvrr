@@ -4,7 +4,7 @@ angular.module('zombieDrive')
     var link = function(scope){
       scope.authClick = function(){
         authorize.handleAuthClick();
-        console.log("clicked");
+        //console.log("clicked");
       };
       var init = function(){
         if (authorize.checkAuth){

@@ -10,7 +10,7 @@ angular.module('zombieDrive')
     this.zombie = true;
     var link = function(scope, element, attrs){
       var getDocText = function(){
-        console.log('Doc text: ' + currentDoc.translatedDoc);
+        //console.log('Doc text: ' + currentDoc.translatedDoc);
         var docText = currentDoc.translatedDoc.replace(/\n/g, "<br>");
         element.html(docText);
       };
